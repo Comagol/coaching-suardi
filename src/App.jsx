@@ -1,9 +1,7 @@
-import { Text } from '@chakra-ui/react'
+import AppRoutes from "./routes/AppRoutes";
 
-function App() {
-  return (
-    <Text>hola mundo</Text>
-  )
-}
+const App = () => {
+  return <AppRoutes />;
+};
 
-export default App
+export default App;
