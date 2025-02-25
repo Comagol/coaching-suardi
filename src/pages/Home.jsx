@@ -1,8 +1,9 @@
 import React from 'react'
+import CoachSection from '../components/CoachSection'
 
 const Home = () => {
   return (
-    <div>Home</div>
+      <CoachSection/>
   )
 }
 
