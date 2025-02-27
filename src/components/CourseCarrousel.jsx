@@ -10,10 +10,10 @@ import course4 from "../assets/images/course4.png";
 
 // Datos de ejemplo de cursos/workshops
 const courses = [
-  { id: 1, title: "Curso 1", image: course1, link: "/course/1" },
-  { id: 2, title: "Curso 2", image: course2, link: "/course/2" },
-  { id: 3, title: "Curso 3", image: course3, link: "/course/3" },
-  { id: 4, title: "Curso 4", image: course4, link: "/course/4" },
+  { id: 1, title: "Amor Propio", image: course1, link: "/course/1" },
+  { id: 2, title: "Vocacional", image: course2, link: "/course/2" },
+  { id: 3, title: "Reinventate", image: course3, link: "/course/3" },
+  { id: 4, title: "Profesional", image: course4, link: "/course/4" },
 ];
 
 const CourseCarousel = () => {
