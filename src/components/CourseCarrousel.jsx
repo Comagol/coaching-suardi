@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Text, Image, Container, Flex, IconButton } from "@chakra-ui/react";
+import { Box, Text, Image, Container, Flex, IconButton, Grid, useBreakpointValue } from "@chakra-ui/react";
 import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
 import { useState } from "react";
 import { Link } from "react-router-dom";
@@ -18,68 +18,113 @@ const courses = [
 
 const CourseCarousel = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const isMobile = useBreakpointValue({ base: true, md: false });
+  const slidesToShow = useBreakpointValue({ base: 1, md: 2, lg: 3 });
 
   const prevSlide = () => {
-    setCurrentIndex((prev) => (prev === 0 ? courses.length - 1 : prev - 1));
+    setCurrentIndex((prev) => (prev === 0 ? courses.length - slidesToShow : prev - 1));
   };
 
   const nextSlide = () => {
-    setCurrentIndex((prev) => (prev === courses.length - 1 ? 0 : prev + 1));
+    setCurrentIndex((prev) => (prev + slidesToShow >= courses.length ? 0 : prev + 1));
   };
 
+  const visibleCourses = courses.slice(currentIndex, currentIndex + slidesToShow);
+
   return (
-    <Container maxW="container.md" py={6}>
-      <Text fontSize="2xl" fontWeight="bold" mb={4} textAlign="center">
+    <Container maxW="container.xl" py={{ base: 8, md: 12 }}>
+      <Text 
+        fontSize={{ base: "2xl", md: "3xl" }} 
+        fontWeight="bold" 
+        mb={{ base: 6, md: 8 }} 
+        textAlign="center">
         Workshops y Cursos
       </Text>
 
-      <Flex align="center" justify="center" position="relative">
-        {/* Botón Izquierda */}
+      <Box position="relative">
+        {/* Botones de navegación */}
         <IconButton
           aria-label="Anterior"
           icon={<ChevronLeftIcon />}
           position="absolute"
-          left="0"
+          left={{ base: "-2", md: "-4" }}
           top="50%"
           transform="translateY(-50%)"
           zIndex="1"
           onClick={prevSlide}
+          display={{ base: "none", md: "flex" }}
+          size={{ base: "sm", md: "md" }}
         />
 
-        {/* Imagen y Contenido */}
-        <Link to={courses[currentIndex].link}>
-          <Box
-            borderWidth="1px"
-            borderRadius="lg"
-            overflow="hidden"
-            boxShadow="md"
-            _hover={{ transform: "scale(1.05)", transition: "0.3s" }}
-          >
-            <Image
-              src={courses[currentIndex].image}
-              alt={courses[currentIndex].title}
-              objectFit="cover"
-              w="100%"
-              h="250px"
-            />
-            <Box p={4} textAlign="center">
-              <Text fontWeight="bold">{courses[currentIndex].title}</Text>
-            </Box>
-          </Box>
-        </Link>
+        {/* Grid de cursos */}
+        <Grid
+          templateColumns={{
+            base: "1fr",
+            md: `repeat(${slidesToShow}, 1fr)`,
+          }}
+          gap={{ base: 4, md: 6 }}
+          px={{ base: 0, md: 8 }}
+        >
+          {visibleCourses.map((course) => (
+            <Link key={course.id} to={course.link}>
+              <Box
+                borderWidth="1px"
+                borderRadius="lg"
+                overflow="hidden"
+                boxShadow="md"
+                transition="transform 0.3s ease"
+                _hover={{ transform: "scale(1.02)" }}
+                height="100%"
+              >
+                <Image
+                  src={course.image}
+                  alt={course.title}
+                  objectFit="cover"
+                  width="100%"
+                  height={{ base: "200px", md: "250px", lg: "300px" }}
+                />
+                <Box p={{ base: 3, md: 4 }} textAlign="center">
+                  <Text 
+                    fontSize={{ base: "lg", md: "xl" }} 
+                    fontWeight="bold">
+                    {course.title}
+                  </Text>
+                </Box>
+              </Box>
+            </Link>
+          ))}
+        </Grid>
 
-        {/* Botón Derecha */}
         <IconButton
           aria-label="Siguiente"
           icon={<ChevronRightIcon />}
           position="absolute"
-          right="0"
+          right={{ base: "-2", md: "-4" }}
           top="50%"
           transform="translateY(-50%)"
           zIndex="1"
           onClick={nextSlide}
+          display={{ base: "none", md: "flex" }}
+          size={{ base: "sm", md: "md" }}
         />
-      </Flex>
+
+        {/* Indicadores de navegación para móvil */}
+        {isMobile && (
+          <Flex justify="center" mt={4} gap={2}>
+            {courses.map((_, index) => (
+              <Box
+                key={index}
+                w={2}
+                h={2}
+                borderRadius="full"
+                bg={index === currentIndex ? "blue.500" : "gray.200"}
+                cursor="pointer"
+                onClick={() => setCurrentIndex(index)}
+              />
+            ))}
+          </Flex>
+        )}
+      </Box>
     </Container>
   );
 };
