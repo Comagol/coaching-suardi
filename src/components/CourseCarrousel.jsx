@@ -9,11 +9,11 @@ import course3 from "../assets/images/course3.png";
 import course4 from "../assets/images/course4.png";
 
 // Datos de ejemplo de cursos/workshops
-const courses = [
-  { id: 1, title: "Amor Propio", image: course1, link: "/course/1" },
-  { id: 2, title: "Vocacional", image: course2, link: "/course/2" },
-  { id: 3, title: "Reinventate", image: course3, link: "/course/3" },
-  { id: 4, title: "Profesional", image: course4, link: "/course/4" },
+const services = [
+  { id: 1, title: "Amor Propio", image: course1, link: "/services/1" },
+  { id: 2, title: "Vocacional", image: course2, link: "/services/2" },
+  { id: 3, title: "Reinventate", image: course3, link: "/services/3" },
+  { id: 4, title: "Profesional", image: course4, link: "/services/4" },
 ];
 
 const CourseCarousel = () => {
@@ -22,14 +22,14 @@ const CourseCarousel = () => {
   const slidesToShow = useBreakpointValue({ base: 1, md: 2, lg: 3 });
 
   const prevSlide = () => {
-    setCurrentIndex((prev) => (prev === 0 ? courses.length - slidesToShow : prev - 1));
+    setCurrentIndex((prev) => (prev === 0 ? services.length - slidesToShow : prev - 1));
   };
 
   const nextSlide = () => {
-    setCurrentIndex((prev) => (prev + slidesToShow >= courses.length ? 0 : prev + 1));
+    setCurrentIndex((prev) => (prev + slidesToShow >= services.length ? 0 : prev + 1));
   };
 
-  const visibleCourses = courses.slice(currentIndex, currentIndex + slidesToShow);
+  const visibleCourses = services.slice(currentIndex, currentIndex + slidesToShow);
 
   return (
     <Container maxW="container.xl" py={{ base: 8, md: 12 }}>
@@ -38,7 +38,7 @@ const CourseCarousel = () => {
         fontWeight="bold" 
         mb={{ base: 6, md: 8 }} 
         textAlign="center">
-        Workshops y Cursos
+        Servicios
       </Text>
 
       <Box position="relative">
@@ -111,7 +111,7 @@ const CourseCarousel = () => {
         {/* Indicadores de navegación para móvil */}
         {isMobile && (
           <Flex justify="center" mt={4} gap={2}>
-            {courses.map((_, index) => (
+            {services.map((_, index) => (
               <Box
                 key={index}
                 w={2}

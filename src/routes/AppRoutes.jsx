@@ -7,7 +7,8 @@ import Contact from "../pages/Contact";
 import Login from "../pages/Login";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import Cart from "../pages/Cart"
+import Cart from "../pages/Cart";
+import ServiceDetail from "../pages/ServiceDetail";
 
 const AppRoutes = () => {
   return (
@@ -20,6 +21,7 @@ const AppRoutes = () => {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/services" element={<Services />} />
+            <Route path="/services/:id" element={<ServiceDetail />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/login" element={<Login />} />
