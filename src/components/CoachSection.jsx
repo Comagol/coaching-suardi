@@ -10,7 +10,6 @@ const CoachSection = () => {
         gap={{ base: 8, md: 12 }}
         alignItems="center">
         
-        {/* Imagen con mejor control de tamaño */}
         <Box position="relative" width="100%" height={{ base: '300px', md: '400px', lg: '500px' }}>
           <Image
             src={coach}
@@ -25,7 +24,6 @@ const CoachSection = () => {
           />
         </Box>
 
-        {/* Información de la coach con mejor espaciado y tipografía */}
         <VStack 
           spacing={{ base: 4, md: 6 }} 
           align={{ base: 'center', md: 'start' }}
