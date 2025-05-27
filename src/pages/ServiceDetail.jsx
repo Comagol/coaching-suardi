@@ -13,17 +13,26 @@ import {
   GridItem,
 } from '@chakra-ui/react';
 import { useCart } from '../context/CartContext';
+import course1 from "../assets/images/course1.png";
+import course2 from "../assets/images/course2.png";
+import course3 from "../assets/images/course3.png";
+import course4 from "../assets/images/course4.png";
 
 const ServiceDetail = () => {
   const { id } = useParams();
   const { addToCart } = useCart();
-  const toast = useToast();
+  const toast = useToast(); 
+
+  // Map of service images
+  const serviceImages = {
+    1: course1
+  };
 
   // This would typically come from an API or database
   const service = {
     id: parseInt(id),
     title: "Amor Propio",
-    image: "/path/to/image.jpg",
+    image: serviceImages[parseInt(id)] || course1, // Fallback to course1 if id not found
     description: "Descubre y fortalece tu amor propio a través de técnicas y ejercicios prácticos que te ayudarán a desarrollar una autoestima saludable.",
     price: 70000,
     longDescription: "Este servicio está diseñado para ayudarte a desarrollar una relación más saludable contigo mismo. A través de sesiones personalizadas, aprenderás técnicas efectivas para mejorar tu autoestima, establecer límites saludables y cultivar una mentalidad positiva. El programa incluye ejercicios prácticos, meditaciones guiadas y herramientas para el día a día que te ayudarán a transformar tu relación contigo mismo.",
@@ -32,8 +41,7 @@ const ServiceDetail = () => {
       "8 sesiones individuales",
       "Material de trabajo",
       "Ejercicios prácticos",
-      "Soporte por WhatsApp",
-      "Certificado de finalización"
+      "Soporte por WhatsApp"
     ]
   };
 
