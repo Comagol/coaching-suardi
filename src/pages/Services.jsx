@@ -4,13 +4,14 @@ import {
   Text,
   Grid,
   Image,
-  Flex,
   Button,
   Container,
   Heading,
   VStack,
   useColorModeValue,
+  useToast,
 } from '@chakra-ui/react';
+import { useCart } from '../context/CartContext';
 import course1 from "../assets/images/course1.png";
 import course2 from "../assets/images/course2.png";
 import course3 from "../assets/images/course3.png";
@@ -21,29 +22,47 @@ const services = [
     id: 1, 
     title: 'Amor Propio', 
     image: course1, 
-    description: 'Descubre y fortalece tu amor propio a través de técnicas y ejercicios prácticos que te ayudarán a desarrollar una autoestima saludable.' 
+    description: 'Descubre y fortalece tu amor propio a través de técnicas y ejercicios prácticos que te ayudarán a desarrollar una autoestima saludable.',
+    price: 70000
   },
   { 
     id: 2, 
     title: 'Vocacional', 
     image: course2, 
-    description: 'Encuentra tu vocación y desarrolla tu potencial profesional con herramientas y guía personalizada para tu crecimiento.' 
+    description: 'Encuentra tu vocación y desarrolla tu potencial profesional con herramientas y guía personalizada para tu crecimiento.',
+    price: 55000
   },
   { 
     id: 3, 
     title: 'Reinventate', 
     image: course3, 
-    description: 'Transforma tu vida y alcanza tus objetivos con estrategias efectivas para el cambio personal y profesional.' 
+    description: 'Transforma tu vida y alcanza tus objetivos con estrategias efectivas para el cambio personal y profesional.',
+    price: 65000
   },
   { 
     id: 4, 
     title: 'Profesional', 
     image: course4, 
-    description: 'Potencia tu carrera profesional con técnicas de coaching especializadas en desarrollo laboral y liderazgo.' 
+    description: 'Potencia tu carrera profesional con técnicas de coaching especializadas en desarrollo laboral y liderazgo.',
+    price: 75000
   },
 ];
 
 const Services = () => {
+  const { addToCart } = useCart();
+  const toast = useToast();
+
+  const handleAddToCart = (service) => {
+    addToCart(service);
+    toast({
+      title: "Servicio agregado",
+      description: `${service.title} ha sido agregado al carrito`,
+      status: "success",
+      duration: 2000,
+      isClosable: true,
+    });
+  };
+
   return (
     <Container maxW="container.xl" py={{ base: 8, md: 12 }}>
       <VStack spacing={{ base: 8, md: 12 }} align="stretch">
@@ -95,14 +114,22 @@ const Services = () => {
                   >
                     {service.description}
                   </Text>
+                  <Text 
+                    fontSize="lg" 
+                    fontWeight="bold" 
+                    color={useColorModeValue('blue.600', 'blue.300')}
+                  >
+                    ${service.price}
+                  </Text>
                 </VStack>
                 <Button 
                   colorScheme="blue" 
                   size={{ base: "sm", md: "md" }}
                   width="full"
                   mt={2}
+                  onClick={() => handleAddToCart(service)}
                 >
-                  Agregar Servicio
+                  Agregar al Carrito
                 </Button>
               </VStack>
             </Box>

@@ -1,13 +1,15 @@
 import { useState } from "react";
 import { Form, Link } from "react-router-dom";
-import { Box, Flex, IconButton, Drawer, DrawerOverlay, DrawerContent, DrawerCloseButton, VStack, Spacer, Image, HStack, useBreakpointValue } from "@chakra-ui/react";
+import { Box, Flex, IconButton, Drawer, DrawerOverlay, DrawerContent, DrawerCloseButton, VStack, Spacer, Image, HStack, useBreakpointValue, Badge } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 import { FiShoppingCart } from "react-icons/fi";
+import { useCart } from "../context/CartContext";
 import logo from "../assets/images/Logo.png"
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const isMobile = useBreakpointValue({ base: true, md: false });
+  const { cart } = useCart();
 
   const NavLinks = () => (
     <HStack spacing={6} display={{ base: "none", md: "flex" }}>
@@ -43,15 +45,30 @@ const Navbar = () => {
         <Spacer />
 
         {/* Carrito de compras */}
-        <IconButton
-          as={Link}
-          to="/cart"
-          icon={<FiShoppingCart />}
-          variant="ghost"
-          colorScheme="whiteAlpha"
-          aria-label="Carrito de compras"
-          mr={2}
-        />
+        <Box position="relative">
+          <IconButton
+            as={Link}
+            to="/cart"
+            icon={<FiShoppingCart />}
+            variant="ghost"
+            colorScheme="whiteAlpha"
+            aria-label="Carrito de compras"
+            mr={2}
+          />
+          {cart.length > 0 && (
+            <Badge
+              position="absolute"
+              top="-1"
+              right="-1"
+              colorScheme="red"
+              borderRadius="full"
+              minW="20px"
+              textAlign="center"
+            >
+              {cart.length}
+            </Badge>
+          )}
+        </Box>
 
         {/* Menú Hamburguesa solo para móvil */}
         {isMobile && (
