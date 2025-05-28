@@ -20,6 +20,8 @@ const SocialButton = ({ children, label, href }) => {
       cursor={'pointer'}
       as={'a'}
       href={href}
+      target="_blank"
+      rel="noopener noreferrer"
       display={'inline-flex'}
       alignItems={'center'}
       justifyContent={'center'}
@@ -52,7 +54,7 @@ export default function Footer() {
           <SocialButton label={'YouTube'} href={'#'}>
             <FaYoutube size={20} />
           </SocialButton>
-          <SocialButton label={'Instagram'} href={'#'}>
+          <SocialButton label={'Instagram'} target="_blank" href={'https://www.instagram.com/gabisuardicoach/'}>
             <FaInstagram size={20} />
           </SocialButton>
         </Stack>
