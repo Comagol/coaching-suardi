@@ -16,7 +16,7 @@ import course1 from "../assets/images/course1.png";
 import course2 from "../assets/images/course2.png";
 import course3 from "../assets/images/course3.png";
 import course4 from "../assets/images/course4.png";
-
+import { useNavigate } from 'react-router-dom';
 const services = [
   { 
     id: 1, 
@@ -51,6 +51,7 @@ const services = [
 const Services = () => {
   const { addToCart } = useCart();
   const toast = useToast();
+  const navigate = useNavigate();
 
   const handleAddToCart = (service) => {
     addToCart(service);
@@ -90,6 +91,7 @@ const Services = () => {
               borderWidth="1px"
               borderRadius="lg"
               shadow="md"
+              onClick={() => navigate(`/services/${service.id}`)}
               transition="transform 0.3s ease"
               _hover={{ transform: "translateY(-5px)" }}
               bg={useColorModeValue('white', 'gray.800')}
