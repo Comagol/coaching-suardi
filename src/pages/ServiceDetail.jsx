@@ -14,9 +14,6 @@ import {
 } from '@chakra-ui/react';
 import { useCart } from '../context/CartContext';
 import course1 from "../assets/images/course1.png";
-import course2 from "../assets/images/course2.png";
-import course3 from "../assets/images/course3.png";
-import course4 from "../assets/images/course4.png";
 
 const ServiceDetail = () => {
   const { id } = useParams();
