@@ -18,7 +18,7 @@ const Cart = () => {
   const { cart, total, updateQuantity, removeFromCart, clearCart } = useCart();
 
   return (
-    <VStack spacing={4} p={4} align="stretch">
+    <VStack spacing={4} p={4} align="stretch" w="100%">
       <Heading size="lg" textAlign="center">Tu Carrito</Heading>
       {cart.length > 0 ? (
         cart.map((item) => (
@@ -56,8 +56,8 @@ const Cart = () => {
         <Box textAlign="center">
           <Text fontWeight="bold" fontSize="xl">Total: ${total}</Text>
           <Stack mt={4} spacing={3}>
-            <Button colorScheme="red" onClick={clearCart}>Vaciar Carrito</Button>
-            <Button colorScheme="green">Finalizar Compra</Button>
+            <Button width="40%" alignSelf="center" colorScheme="red" onClick={clearCart}>Vaciar Carrito</Button>
+            <Button width="40%" alignSelf="center" colorScheme="green">Finalizar Compra</Button>
           </Stack>
         </Box>
       )}
