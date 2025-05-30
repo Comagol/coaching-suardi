@@ -18,7 +18,7 @@ const Cart = () => {
   const { cart, total, updateQuantity, removeFromCart, clearCart } = useCart();
 
   return (
-    <VStack spacing={4} p={4} align="stretch" w="100%">
+    <VStack spacing={4} p={4} align="stretch">
       <Heading size="lg" textAlign="center">Tu Carrito</Heading>
       {cart.length > 0 ? (
         cart.map((item) => (
