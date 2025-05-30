@@ -1,0 +1,56 @@
+{
+  "title": "¿En qué te puedo ayudar?",
+  "subtitle": "Completa el formulario y nos pondremos en contacto contigo",
+  "formFields": [
+    {
+      "name": "nombre",
+      "label": "Nombre:",
+      "type": "text",
+      "placeholder": "Pedro",
+      "required": true
+    },
+    {
+      "name": "apellido",
+      "label": "Apellido:",
+      "type": "text",
+      "placeholder": "Pérez",
+      "required": true
+    },
+    {
+      "name": "telefono",
+      "label": "Teléfono:",
+      "type": "tel",
+      "placeholder": "011 1234 5678",
+      "required": true
+    },
+    {
+      "name": "asunto",
+      "label": "Asunto:",
+      "type": "textarea",
+      "placeholder": "Escribe tu consulta aquí...",
+      "required": true,
+      "rows": 4
+    },
+    {
+      "name": "servicio",
+      "label": "Servicio:",
+      "type": "select",
+      "placeholder": "Selecciona un servicio",
+      "required": true,
+      "options": [
+        { "value": "amor propio", "label": "Amor Propio" },
+        { "value": "vocacional", "label": "Vocacional" },
+        { "value": "reinventate", "label": "Reinventate" },
+        { "value": "profesional", "label": "Profesional" }
+      ]
+    }
+  ],
+  "submitButton": {
+    "text": "Enviar",
+    "colorScheme": "blue"
+  },
+  "successMessage": {
+    "title": "Consulta enviada",
+    "description": "Nos pondremos en contacto contigo pronto."
+  }
+} 

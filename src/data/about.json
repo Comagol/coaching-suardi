@@ -1,0 +1,23 @@
+{
+  "coach": {
+    "name": "Gabriela Sauardi",
+    "image": "/src/assets/images/coach.jpg",
+    "description": "Gabriela Sauardi es una coach vocacional con amplia experiencia en ayudar a las personas a encontrar su camino profesional y personal."
+  },
+  "whyChooseUs": {
+    "title": "¿Por qué elegir mis servicios?",
+    "benefits": [
+      "Atención personalizada y acompañamiento en el proceso.",
+      "Herramientas prácticas para la toma de decisiones.",
+      "Experiencia y compromiso con cada persona."
+    ]
+  },
+  "serviceModality": {
+    "title": "Modalidad del servicio",
+    "options": [
+      "Sesiones individuales o grupales.",
+      "Modalidad online o presencial.",
+      "Flexibilidad horaria para adaptarse a tu agenda."
+    ]
+  }
+} 

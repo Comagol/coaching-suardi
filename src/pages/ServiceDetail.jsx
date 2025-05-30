@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import {
   Box,
@@ -13,34 +13,36 @@ import {
   GridItem,
 } from '@chakra-ui/react';
 import { useCart } from '../context/CartContext';
-import course1 from "../assets/images/course1.png";
+import servicesData from '../data/services.json';
 
 const ServiceDetail = () => {
   const { id } = useParams();
   const { addToCart } = useCart();
-  const toast = useToast(); 
+  const toast = useToast();
+  const [service, setService] = useState(null);
+  const [serviceImage, setServiceImage] = useState(null);
 
-  // Map of service images
-  const serviceImages = {
-    1: course1
-  };
+  useEffect(() => {
+    // Find the service by id
+    const foundService = servicesData.services.find(s => s.id === parseInt(id));
+    if (foundService) {
+      setService(foundService);
+      // Load the image dynamically
+      const loadImage = async () => {
+        const imageModule = await import(foundService.image.replace('/src', '..'));
+        setServiceImage(imageModule.default);
+      };
+      loadImage();
+    }
+  }, [id]);
 
-  // This would typically come from an API or database
-  const service = {
-    id: parseInt(id),
-    title: "Amor Propio",
-    image: serviceImages[parseInt(id)] || course1, // Fallback to course1 if id not found
-    description: "Descubre y fortalece tu amor propio a través de técnicas y ejercicios prácticos que te ayudarán a desarrollar una autoestima saludable.",
-    price: 70000,
-    longDescription: "Este servicio está diseñado para ayudarte a desarrollar una relación más saludable contigo mismo. A través de sesiones personalizadas, aprenderás técnicas efectivas para mejorar tu autoestima, establecer límites saludables y cultivar una mentalidad positiva. El programa incluye ejercicios prácticos, meditaciones guiadas y herramientas para el día a día que te ayudarán a transformar tu relación contigo mismo.",
-    duration: "8 semanas",
-    includes: [
-      "8 sesiones individuales",
-      "Material de trabajo",
-      "Ejercicios prácticos",
-      "Soporte por WhatsApp"
-    ]
-  };
+  if (!service || !serviceImage) {
+    return (
+      <Container maxW="container.xl" py={8}>
+        <Text>Cargando...</Text>
+      </Container>
+    );
+  }
 
   const handleAddToCart = () => {
     addToCart(service);
@@ -58,7 +60,7 @@ const ServiceDetail = () => {
       <Grid templateColumns={{ base: "1fr", md: "repeat(2, 1fr)" }} gap={8}>
         <GridItem>
           <Image
-            src={service.image}
+            src={serviceImage}
             alt={service.title}
             borderRadius="lg"
             width="100%"

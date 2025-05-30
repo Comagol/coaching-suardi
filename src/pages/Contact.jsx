@@ -16,6 +16,7 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import { ChevronDownIcon } from "@chakra-ui/icons";
+import contactConfig from "../data/contact.json";
 
 const Contact = () => {
   const toast = useToast();
@@ -23,13 +24,12 @@ const Contact = () => {
   const borderColor = useColorModeValue('gray.200', 'gray.700');
 
   // Estado del formulario
-  const [formData, setFormData] = useState({
-    nombre: "",
-    apellido: "",
-    telefono: "",
-    asunto: "",
-    servicio: "",
-  });
+  const [formData, setFormData] = useState(
+    contactConfig.formFields.reduce((acc, field) => ({
+      ...acc,
+      [field.name]: ""
+    }), {})
+  );
 
   // Manejo de cambios en los inputs
   const handleChange = (e) => {
@@ -41,20 +41,63 @@ const Contact = () => {
     e.preventDefault();
     
     toast({
-      title: "Consulta enviada",
-      description: "Nos pondremos en contacto contigo pronto.",
+      title: contactConfig.successMessage.title,
+      description: contactConfig.successMessage.description,
       status: "success",
       duration: 3000,
       isClosable: true,
     });
 
-    setFormData({
-      nombre: "",
-      apellido: "",
-      telefono: "",
-      asunto: "",
-      servicio: "",
-    });
+    setFormData(
+      contactConfig.formFields.reduce((acc, field) => ({
+        ...acc,
+        [field.name]: ""
+      }), {})
+    );
+  };
+
+  const renderFormField = (field) => {
+    switch (field.type) {
+      case "textarea":
+        return (
+          <Textarea
+            name={field.name}
+            placeholder={field.placeholder}
+            value={formData[field.name]}
+            onChange={handleChange}
+            size={{ base: "sm", md: "md" }}
+            rows={field.rows}
+          />
+        );
+      case "select":
+        return (
+          <Select
+            name={field.name}
+            placeholder={field.placeholder}
+            icon={<ChevronDownIcon />}
+            value={formData[field.name]}
+            onChange={handleChange}
+            size={{ base: "sm", md: "md" }}
+          >
+            {field.options.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </Select>
+        );
+      default:
+        return (
+          <Input
+            name={field.name}
+            type={field.type}
+            placeholder={field.placeholder}
+            value={formData[field.name]}
+            onChange={handleChange}
+            size={{ base: "sm", md: "md" }}
+          />
+        );
+    }
   };
 
   return (
@@ -68,13 +111,13 @@ const Contact = () => {
               color={useColorModeValue('gray.800', 'gray.200')}
               mb={2}
             >
-              ¿En qué te puedo ayudar?
+              {contactConfig.title}
             </Heading>
             <Text
               fontSize={{ base: "md", md: "lg" }}
               color={useColorModeValue('gray.600', 'gray.400')}
             >
-              Completa el formulario y nos pondremos en contacto contigo
+              {contactConfig.subtitle}
             </Text>
           </Box>
 
@@ -89,76 +132,23 @@ const Contact = () => {
             shadow="md"
           >
             <VStack spacing={{ base: 4, md: 6 }}>
-              <FormControl isRequired>
-                <FormLabel fontSize={{ base: "sm", md: "md" }}>Nombre:</FormLabel>
-                <Input
-                  name="nombre"
-                  placeholder="Pedro"
-                  value={formData.nombre}
-                  onChange={handleChange}
-                  size={{ base: "sm", md: "md" }}
-                />
-              </FormControl>
-
-              <FormControl isRequired>
-                <FormLabel fontSize={{ base: "sm", md: "md" }}>Apellido:</FormLabel>
-                <Input
-                  name="apellido"
-                  placeholder="Pérez"
-                  value={formData.apellido}
-                  onChange={handleChange}
-                  size={{ base: "sm", md: "md" }}
-                />
-              </FormControl>
-
-              <FormControl isRequired>
-                <FormLabel fontSize={{ base: "sm", md: "md" }}>Teléfono:</FormLabel>
-                <Input
-                  name="telefono"
-                  placeholder="011 1234 5678"
-                  value={formData.telefono}
-                  onChange={handleChange}
-                  size={{ base: "sm", md: "md" }}
-                />
-              </FormControl>
-
-              <FormControl isRequired>
-                <FormLabel fontSize={{ base: "sm", md: "md" }}>Asunto:</FormLabel>
-                <Textarea
-                  name="asunto"
-                  placeholder="Escribe tu consulta aquí..."
-                  value={formData.asunto}
-                  onChange={handleChange}
-                  size={{ base: "sm", md: "md" }}
-                  rows={4}
-                />
-              </FormControl>
-
-              <FormControl isRequired>
-                <FormLabel fontSize={{ base: "sm", md: "md" }}>Servicio:</FormLabel>
-                <Select
-                  name="servicio"
-                  placeholder="Selecciona un servicio"
-                  icon={<ChevronDownIcon />}
-                  value={formData.servicio}
-                  onChange={handleChange}
-                  size={{ base: "sm", md: "md" }}
-                >
-                  <option value="amor propio">Amor Propio</option>
-                  <option value="vocacional">Vocacional</option>
-                  <option value="reinventate">Reinventate</option>
-                  <option value="profesional">Profesional</option>
-                </Select>
-              </FormControl>
+              {contactConfig.formFields.map((field) => (
+                <FormControl key={field.name} isRequired={field.required}>
+                  <FormLabel fontSize={{ base: "sm", md: "md" }}>
+                    {field.label}
+                  </FormLabel>
+                  {renderFormField(field)}
+                </FormControl>
+              ))}
 
               <Button
                 type="submit"
-                colorScheme="blue"
+                colorScheme={contactConfig.submitButton.colorScheme}
                 width="full"
                 size={{ base: "md", md: "lg" }}
                 mt={4}
               >
-                Enviar
+                {contactConfig.submitButton.text}
               </Button>
             </VStack>
           </Box>

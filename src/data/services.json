@@ -1,0 +1,64 @@
+{
+  "services": [
+    {
+      "id": 1,
+      "title": "Amor Propio",
+      "image": "/src/assets/images/course1.png",
+      "description": "Descubre y fortalece tu amor propio a través de técnicas y ejercicios prácticos que te ayudarán a desarrollar una autoestima saludable.",
+      "price": 70000,
+      "longDescription": "Este servicio está diseñado para ayudarte a desarrollar una relación más saludable contigo mismo. A través de sesiones personalizadas, aprenderás técnicas efectivas para mejorar tu autoestima, establecer límites saludables y cultivar una mentalidad positiva. El programa incluye ejercicios prácticos, meditaciones guiadas y herramientas para el día a día que te ayudarán a transformar tu relación contigo mismo.",
+      "duration": "8 semanas",
+      "includes": [
+        "8 sesiones individuales",
+        "Material de trabajo",
+        "Ejercicios prácticos",
+        "Soporte por WhatsApp"
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Vocacional",
+      "image": "/src/assets/images/course2.png",
+      "description": "Encuentra tu vocación y desarrolla tu potencial profesional con herramientas y guía personalizada para tu crecimiento.",
+      "price": 55000,
+      "longDescription": "Este programa te ayudará a descubrir tu verdadera vocación y a desarrollar un plan de carrera alineado con tus intereses y habilidades. A través de evaluaciones personalizadas y sesiones de coaching, identificarás tus fortalezas, valores y objetivos profesionales. El programa te proporcionará las herramientas necesarias para tomar decisiones informadas sobre tu futuro profesional.",
+      "duration": "6 semanas",
+      "includes": [
+        "6 sesiones individuales",
+        "Evaluación vocacional",
+        "Plan de carrera personalizado",
+        "Soporte por email"
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Reinventate",
+      "image": "/src/assets/images/course3.png",
+      "description": "Transforma tu vida y alcanza tus objetivos con estrategias efectivas para el cambio personal y profesional.",
+      "price": 65000,
+      "longDescription": "Este programa está diseñado para ayudarte a realizar cambios significativos en tu vida personal y profesional. A través de un enfoque holístico, trabajarás en diferentes aspectos de tu vida para lograr un equilibrio y alcanzar tus objetivos. El programa combina técnicas de coaching, desarrollo personal y planificación estratégica para guiarte en tu proceso de reinvención.",
+      "duration": "10 semanas",
+      "includes": [
+        "10 sesiones individuales",
+        "Plan de acción personalizado",
+        "Ejercicios de autoconocimiento",
+        "Soporte continuo"
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Profesional",
+      "image": "/src/assets/images/course4.png",
+      "description": "Potencia tu carrera profesional con técnicas de coaching especializadas en desarrollo laboral y liderazgo.",
+      "price": 75000,
+      "longDescription": "Este programa está enfocado en el desarrollo profesional y el liderazgo. Aprenderás estrategias efectivas para avanzar en tu carrera, mejorar tus habilidades de liderazgo y gestionar equipos de manera exitosa. El programa incluye técnicas de comunicación, resolución de conflictos y toma de decisiones estratégicas para profesionales que buscan crecer en sus roles.",
+      "duration": "12 semanas",
+      "includes": [
+        "12 sesiones individuales",
+        "Evaluación de liderazgo",
+        "Plan de desarrollo profesional",
+        "Soporte ejecutivo"
+      ]
+    }
+  ]
+} 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Text,
@@ -9,9 +9,19 @@ import {
   Stack,
   useColorModeValue,
 } from "@chakra-ui/react";
-import coach from "../assets/images/coach.jpg"
+import aboutData from "../data/about.json";
 
 const About = () => {
+  const [coachImage, setCoachImage] = useState(null);
+
+  useEffect(() => {
+    const loadImage = async () => {
+      const imageModule = await import(aboutData.coach.image.replace('/src', '..'));
+      setCoachImage(imageModule.default);
+    };
+    loadImage();
+  }, []);
+
   return (
     <Container maxW={"container.md"} py={8}>
       {/* Sección: ¿Quién soy? */}
@@ -21,8 +31,8 @@ const About = () => {
         alignItems="center"
       >
         <Image
-          src={coach}
-          alt="Gabriela Sauardi"
+          src={coachImage}
+          alt={aboutData.coach.name}
           borderRadius="lg"
           boxSize={{ base: "100%", md: "300px" }}
           objectFit="cover"
@@ -30,8 +40,7 @@ const About = () => {
         <VStack align="start" spacing={3}>
           <Heading size="lg">¿Quién soy?</Heading>
           <Text fontSize="md" color={useColorModeValue("gray.700", "gray.300")}>
-            Gabriela Sauardi es una coach vocacional con amplia experiencia en
-            ayudar a las personas a encontrar su camino profesional y personal.
+            {aboutData.coach.description}
           </Text>
         </VStack>
       </Stack>
@@ -39,24 +48,30 @@ const About = () => {
       {/* Sección: ¿Por qué elegir mis servicios? */}
       <Box py={10}>
         <Heading size="lg" mb={4}>
-          ¿Por qué elegir mis servicios?
+          {aboutData.whyChooseUs.title}
         </Heading>
         <Text fontSize="md" color={useColorModeValue("gray.700", "gray.300")}>
-          - Atención personalizada y acompañamiento en el proceso.
-          <br />- Herramientas prácticas para la toma de decisiones.
-          <br />- Experiencia y compromiso con cada persona.
+          {aboutData.whyChooseUs.benefits.map((benefit, index) => (
+            <React.Fragment key={index}>
+              {benefit}
+              {index < aboutData.whyChooseUs.benefits.length - 1 && <br />}
+            </React.Fragment>
+          ))}
         </Text>
       </Box>
 
       {/* Sección: Modalidad del servicio */}
       <Box py={10}>
         <Heading size="lg" mb={4}>
-          Modalidad del servicio
+          {aboutData.serviceModality.title}
         </Heading>
         <Text fontSize="md" color={useColorModeValue("gray.700", "gray.300")}>
-          - Sesiones individuales o grupales.
-          <br />- Modalidad online o presencial.
-          <br />- Flexibilidad horaria para adaptarse a tu agenda.
+          {aboutData.serviceModality.options.map((option, index) => (
+            <React.Fragment key={index}>
+              {option}
+              {index < aboutData.serviceModality.options.length - 1 && <br />}
+            </React.Fragment>
+          ))}
         </Text>
       </Box>
     </Container>

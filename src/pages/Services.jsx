@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Box,
   Text,
@@ -12,46 +12,32 @@ import {
   useToast,
 } from '@chakra-ui/react';
 import { useCart } from '../context/CartContext';
-import course1 from "../assets/images/course1.png";
-import course2 from "../assets/images/course2.png";
-import course3 from "../assets/images/course3.png";
-import course4 from "../assets/images/course4.png";
 import { useNavigate } from 'react-router-dom';
-const services = [
-  { 
-    id: 1, 
-    title: 'Amor Propio', 
-    image: course1, 
-    description: 'Descubre y fortalece tu amor propio a través de técnicas y ejercicios prácticos que te ayudarán a desarrollar una autoestima saludable.',
-    price: 70000
-  },
-  { 
-    id: 2, 
-    title: 'Vocacional', 
-    image: course2, 
-    description: 'Encuentra tu vocación y desarrolla tu potencial profesional con herramientas y guía personalizada para tu crecimiento.',
-    price: 55000
-  },
-  { 
-    id: 3, 
-    title: 'Reinventate', 
-    image: course3, 
-    description: 'Transforma tu vida y alcanza tus objetivos con estrategias efectivas para el cambio personal y profesional.',
-    price: 65000
-  },
-  { 
-    id: 4, 
-    title: 'Profesional', 
-    image: course4, 
-    description: 'Potencia tu carrera profesional con técnicas de coaching especializadas en desarrollo laboral y liderazgo.',
-    price: 75000
-  },
-];
+import servicesData from '../data/services.json';
 
 const Services = () => {
   const { addToCart } = useCart();
   const toast = useToast();
   const navigate = useNavigate();
+  const [services, setServices] = useState([]);
+
+  useEffect(() => {
+    // Import images dynamically
+    const loadImages = async () => {
+      const servicesWithImages = await Promise.all(
+        servicesData.services.map(async (service) => {
+          const imageModule = await import(service.image.replace('/src', '..'));
+          return {
+            ...service,
+            image: imageModule.default
+          };
+        })
+      );
+      setServices(servicesWithImages);
+    };
+
+    loadImages();
+  }, []);
 
   const handleAddToCart = (service) => {
     addToCart(service);
@@ -129,7 +115,10 @@ const Services = () => {
                   size={{ base: "sm", md: "md" }}
                   width="full"
                   mt={2}
-                  onClick={() => handleAddToCart(service)}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleAddToCart(service);
+                  }}
                 >
                   Agregar al Carrito
                 </Button>
